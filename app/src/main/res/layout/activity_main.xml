@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:title="@string/app_name" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- This FrameLayout acts as the viewport, clipping the content inside -->
+    <FrameLayout
+        android:id="@+id/viewport"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- This container holds the actual content (Image or PDF page) and will be moved -->
+        <FrameLayout
+            android:id="@+id/content_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+            <!-- The content will be scaled up programmatically -->
+
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:contentDescription="@string/image_content_description" />
+
+        </FrameLayout>
+    </FrameLayout>
+
+    <!-- Placeholder text shown when no file is loaded -->
+    <LinearLayout
+        android:id="@+id/placeholder_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_file_open"
+            app:tint="?attr/colorOnSurface"
+            android:alpha="0.5"/>
+
+        <TextView
+            android:id="@+id/text_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/placeholder_text"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="?attr/colorOnSurface"
+            android:alpha="0.7"/>
+    </LinearLayout>
+
+
+    <!-- PDF Navigation Controls -->
+    <LinearLayout
+        android:id="@+id/pdf_nav_controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|center_horizontal"
+        android:gravity="center"
+        android:paddingTop="24dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/nav_background_gradient"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageButton
+            android:id="@+id/btn_prev_page"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_arrow_left"
+            app:tint="@android:color/white"
+            android:contentDescription="@string/previous_page_button"/>
+
+        <TextView
+            android:id="@+id/text_page_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@android:color/white"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            tools:text="Page 1 / 10" />
+
+        <ImageButton
+            android:id="@+id/btn_next_page"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_arrow_right"
+            app:tint="@android:color/white"
+            android:contentDescription="@string/next_page_button"/>
+
+        <ImageButton
+            android:id="@+id/btn_go_to_page"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_jumptopage"
+            app:tint="@android:color/white"
+            android:contentDescription="Go to page"/>
+
+    </LinearLayout>
+
+    <!-- Floating Action Button to open files -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_open_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_file_open"
+        android:contentDescription="@string/open_file_fab_description"/>
+
+    <!-- Controls Panel -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/controls_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="16dp"
+        android:visibility="gone"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="8dp"
+        tools:visibility="visible">
+
+        <ScrollView
+            android:layout_width="280dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/stabilization_label"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_stabilization"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"/>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_recenter"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/recenter_button_label"
+                    app:icon="@drawable/ic_recenter"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sensitivity_label"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                    <TextView
+                        android:id="@+id/text_sensitivity_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        tools:text="1.0x"/>
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/seekbar_sensitivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="100"
+                    android:progress="50" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/stabilization_mode_label"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
+                <RadioGroup
+                    android:id="@+id/radio_group_modes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton android:id="@+id/radio_low" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/stabilization_mode_low"/>
+                    <RadioButton android:id="@+id/radio_medium" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/stabilization_mode_medium" android:checked="true"/>
+                    <RadioButton android:id="@+id/radio_high" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/stabilization_mode_high"/>
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/brightness_label"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_brightness"
+                        android:alpha="0.6"/>
+                    <SeekBar
+                        android:id="@+id/seekbar_brightness"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:max="100"
+                        android:progress="50" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

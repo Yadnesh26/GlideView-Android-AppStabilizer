@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">GlideView</string>
+
+    <!-- Content Descriptions for Accessibility -->
+    <string name="image_content_description">Loaded image or PDF page</string>
+    <string name="open_file_fab_description">Open a file</string>
+
+    <!-- UI Labels and Buttons -->
+    <string name="placeholder_text">Tap the button to open a PDF or Image</string>
+    <string name="stabilization_label">Stabilization</string>
+    <string name="recenter_button_label">Recenter</string>
+    <string name="sensitivity_label">Sensitivity</string>
+    <string name="previous_page_button">Previous Page</string>
+    <string name="next_page_button">Next Page</string>
+    <!-- CORRECTED: Added positional arguments to the format string -->
+    <string name="page_indicator_format">Page %1$d of %2$d</string>
+
+    <!-- Menu Items -->
+    <string name="menu_controls">Controls</string>
+    <string name="menu_theme">Toggle Theme</string>
+
+    <!-- Go to Page Dialog -->
+    <string name="go_to_page_title">Go to Page</string>
+    <string name="go_to_page_hint">Enter page number</string>
+    <string name="go_to_page_go">Go</string>
+    <string name="go_to_page_cancel">Cancel</string>
+    <string name="go_to_page_error">Invalid page number</string>
+
+    <!-- Brightness Control -->
+    <string name="brightness_label">App Brightness</string>
+
+    <!-- Stabilization Modes -->
+    <string name="stabilization_mode_label">Filter Mode</string>
+    <string name="stabilization_mode_low">Low</string>
+    <string name="stabilization_mode_medium">Medium</string>
+    <string name="stabilization_mode_high">High</string>
+
+    <!-- First-time user hint -->
+    <string name="hint_title">Quick Tip</string>
+    <string name="hint_message">Tap the settings icon in the toolbar to adjust stabilization, sensitivity, and more!</string>
+
+    <!-- No Gyroscope message -->
+    <string name="no_gyroscope_message">Gyroscope not found. Stabilization is disabled.</string>
+</resources>

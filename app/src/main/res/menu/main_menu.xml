@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_toggle_controls"
+        android:icon="@drawable/ic_controls"
+        android:title="@string/menu_controls"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_toggle_theme"
+        android:icon="@drawable/ic_dark_mode"
+        android:title="@string/menu_theme"
+        app:showAsAction="ifRoom" />
+
+</menu>
